@@ -1,0 +1,47 @@
+/* Navbar styling */
+.custom-navbar {
+    background: linear-gradient(90deg, #002147, #004080);
+    font-family: 'Poppins', sans-serif;
+    transition: background 0.3s ease;
+}
+
+/* Hamburger button */
+.custom-toggler {
+    border: none;
+    background: none;
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 24px;
+    width: 30px;
+    cursor: pointer;
+    z-index: 9999;
+    position: relative;
+}
+
+.custom-toggler .bar1,
+.custom-toggler .bar2,
+.custom-toggler .bar3 {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.4s ease;
+}
+
+/* Animation effect for hamburger toggle */
+.custom-toggler.open .bar1 {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+.custom-toggler.open .bar2 {
+    opacity: 0;
+}
+.custom-toggler.open .bar3 {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
+/* Smooth collapse animation */
+.transition-collapse {
+    transition: height 0.35s ease;
+}

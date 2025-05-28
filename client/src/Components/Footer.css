@@ -1,0 +1,24 @@
+.footer {
+    background: linear-gradient(to right, #002147, #004080);
+    color: #ffffff;
+}
+
+.footer h5, .footer h6 {
+    margin-bottom: 1rem;
+}
+
+.footer-link {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #f1c40f;
+    text-decoration: underline;
+}
+
+.footer p, .footer li {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
