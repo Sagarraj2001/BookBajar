@@ -8,7 +8,7 @@ const Footer = () => {
             <div className="container">
                 <div className="row align-items-start">
                     <div className="col-md-4 mb-3">
-                        <h5 className="fw-bold">BookBazaar</h5>
+                        <h5 className="fw-bold">KiiTaab</h5>
                         <p className="small">
                             Your one-stop destination to buy and sell books at the best prices.
                         </p>

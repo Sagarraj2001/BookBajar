@@ -55,7 +55,7 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg sticky-top shadow custom-navbar">
             <div className="container-fluid">
                 <Link className="navbar-brand text-white fw-bold fs-4" to="/" onClick={handleNavLinkClick}>
-                    <i className="fas fa-book-open me-2"></i>BookBazaar
+                    <i className="fas fa-book-open me-2"></i>KiiTaab
                 </Link>
 
                 <button
