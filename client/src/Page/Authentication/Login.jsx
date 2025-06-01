@@ -1,22 +1,37 @@
 import React, { useState } from 'react'
-import {Link} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 const Login = () => {
-    const [email,setEmail]=useState();
-    const [password,setPassword]=useState();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [role, setRole] = useState('user');
+    const navigate = useNavigate();
 
-    axios.defaults.withCredentials=true;
+    axios.defaults.withCredentials = true;
 
-    const handleSubmit=async (e)=>{
-        try{
-            const res=await axios.post("http://localhost:5000/api/login",{email,password},{withCredentials:true});
-            console.log(res.data);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.post("http://localhost:8080/api/login", { email, password, role }, {
+                withCredentials: true
+            });
+
+            if (res.data.login) {
+                alert("Login successful!");
+                navigate("/");
+            }
+        } catch (err) {
+            if (err.response && err.response.data.message) {
+                alert(err.response.data.message);
+            } else {
+                alert("An error occurred. Please try again.");
+            }
+            console.error(err);
         }
-        catch(err){
-            console.log(err);
-        }
-    }
+    };
+
     return (
         <>
             <div
@@ -32,14 +47,56 @@ const Login = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor="email" className="form-label">Email address</label>
-                            <input type="email" className="form-control" id="email" value={email} onChange={(e)=>setEmail(e.target.value)} required />
+                            <input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                         </div>
-                        <div className="mb-3">
+                        <div className="mb-3 position-relative">
                             <label htmlFor="password" className="form-label">Password</label>
-                            <input type="password" className="form-control" id="password" value={password} onChange={(e)=>setPassword(e.target.value)} required />
+                            <div className="input-group">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    className="form-control"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                                <span className="input-group-text" onClick={() => setShowPassword(!showPassword)} style={{ cursor: "pointer" }}>
+                                    <i className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`}></i>
+                                </span>
+                            </div>
                         </div>
+
+                        <div className="mb-3">
+                            <label className="form-label">Login as :</label>
+                            <div>
+                                <div className="form-check form-check-inline">
+                                    <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name="role"
+                                        id="userRole"
+                                        value="user"
+                                        checked={role === 'user'}
+                                        onChange={(e) => setRole(e.target.value)}
+                                    />
+                                    <label className="form-check-label" htmlFor="userRole">User</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name="role"
+                                        id="adminRole"
+                                        value="admin"
+                                        checked={role === 'admin'}
+                                        onChange={(e) => setRole(e.target.value)}
+                                    />
+                                    <label className="form-check-label" htmlFor="adminRole">Admin</label>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className='mb-2'>
-                            new user?
+                            New user?
                             <Link to="/signup" className="text-warning text-decoration-none mx-2">
                                 Signup
                             </Link>
@@ -52,4 +109,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;
